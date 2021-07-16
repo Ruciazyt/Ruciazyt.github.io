@@ -19,7 +19,7 @@ glance:
 # Build settings
 theme: glance
 
-#plugins:
+plugins:
 #  - jekyll-feed
   - jekyll-seo-tag
 #  - jekyll-paginate
