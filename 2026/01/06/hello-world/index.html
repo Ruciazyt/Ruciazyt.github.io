@@ -11,15 +11,19 @@
   <meta charset="utf-8" />
     
  
-  <title>Archives: 2026/1 | Hexo</title>
+  <title>前端面试手写题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font"
-  type="font/ttf" crossorigin="anonymous"> <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous"> <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://ruciazyt.github.io/archives/2026/01/index.html">
+  type="font/ttf" crossorigin="anonymous"> <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous"> <meta name="description" content="防抖123456789function debounce(fn, delay)&#123;  let timer &#x3D; null  return function()&#123;    if(timer) clearTimeout(timer)    timer &#x3D; setTimeout(()&#x3D;&gt;&#123;      fn.apply(this, arguments)    &#125;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端面试手写题">
+<meta property="og:url" content="https://ruciazyt.github.io/2026/01/06/hello-world/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="防抖123456789function debounce(fn, delay)&#123;  let timer &#x3D; null  return function()&#123;    if(timer) clearTimeout(timer)    timer &#x3D; setTimeout(()&#x3D;&gt;&#123;      fn.apply(this, arguments)    &#125;,">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-06T04:42:12.836Z">
+<meta property="article:modified_time" content="2026-01-06T04:22:08.992Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">   <link
@@ -147,44 +151,73 @@
     <div id="content-body">
        
 
-<div class="archive-main-card">
-    <div class="archive-top">
-      <div class="main-title-bar">
-        <div class="main-title-dot"></div>
-        <h1 class="article-title">Archives</h1>
-      </div>    
+
+<article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        前端面试手写题
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2026-01-06T04:42:12.836Z" itemprop="datePublished">2026-01-06</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            720 words 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn, delay)&#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function()&#123;</span><br><span class="line">    if(timer) clearTimeout(timer)</span><br><span class="line">    timer = setTimeout(()=&gt;&#123;</span><br><span class="line">      fn.apply(this, arguments)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, delay) &#123;</span><br><span class="line">  let timer;</span><br><span class="line">  return function () &#123;</span><br><span class="line">    if (timer) return</span><br><span class="line">    timer = setTimeout(() =&gt; &#123;</span><br><span class="line">      fn.apply(this, arguments)</span><br><span class="line">      clearTimeout(timer)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现一个sleep函数"><a href="#实现一个sleep函数" class="headerlink" title="实现一个sleep函数"></a>实现一个sleep函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sleep(time) &#123;</span><br><span class="line">  return new Promise(() =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;, time)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="实现new"><a href="#实现new" class="headerlink" title="实现new"></a>实现new</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function myNew(constructor, ...args) &#123;</span><br><span class="line">    // 1.创建一个新对象</span><br><span class="line">    // 2.绑定原型链</span><br><span class="line">    const obj = Object.create(constructor.prototype)</span><br><span class="line">    // 3.执行构造函数，绑定this,传入参数</span><br><span class="line">    const res = constructor.apply(obj, args)</span><br><span class="line">    return res instanceof Object ? res : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+      </div>
+
+         
     </div>
     
-    
-      
-      
-        
-        <div class="year-line">
-            <div class="year-num">2026</div>
-            <div class="dot-wrapper">
-                <div class="dot"></div>
-            </div>
-            <div class="article-count">1 article</div>
-        </div>
-      
-      <a class="archive-article-link" href="/2026/01/06/hello-world/" title="前端面试手写题">
-        <div class="date">01-06</div>
-        <div class="line">
-            <div class="dot"></div>
-        </div>
-        <div class="title">
-            <div class="title-inner">
-                
-                    前端面试手写题
-                
-            </div>
-        </div>
-        <div class="tags">
-            
-        </div>
-      </a>
-    
+     
   </div>
+  
+    
+
+  
+</article>
+
+
+
+
+
+
     </div>
     <div id="footer-wrapper">
       <footer id="footer">
