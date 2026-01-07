@@ -187,7 +187,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2026-01-07T07:01:03.851Z" itemprop="datePublished">2026-01-07</time>
+  <time class="dt-published" datetime="2026-01-07T09:55:19.501Z" itemprop="datePublished">2026-01-07</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -226,6 +226,88 @@
     <a class="right-panel  non-pic  "
       
       href="/2026/01/07/hello-world/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+   
+
+
+<article id="post-手写bind" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2026/01/07/%E6%89%8B%E5%86%99bind/">手写bind</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2026-01-07T07:00:55.971Z" itemprop="datePublished">2026-01-07</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    Uncategorized 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            2k words 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              123456789101112Function.prototype.bind =  Function.prototype.bind ||  function (context) &#123;    let args = Array.prototype.slice.call(arguments, 1)    let me = this    return function () &#123;      let innerArgs = Array.prototype.slice.call(arguments)      let finalArgs = args.concat(innerArgs)      return me.apply(context, finalArgs)    &#125;  &#125;
+
+以上的实现，对于使用new方法时会出错。 new方法简要来说做了四件事
+
+创建新的空对象
+
+将构造函数的this指向这个新的对象
+
+为这个对象添加属性方法
+
+返回新对象
+123456789101112 function test(name) &#123;  this.nam...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2026/01/07/%E6%89%8B%E5%86%99bind/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>
