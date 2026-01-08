@@ -187,7 +187,7 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2026-01-08T03:01:58.905Z" itemprop="datePublished">2026-01-08</time>
+  <time class="dt-published" datetime="2026-01-08T03:02:01.108Z" itemprop="datePublished">2026-01-08</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
@@ -284,9 +284,7 @@
         
           <div class="truncate-text">
             
-              Function.prototype.bind简单实现：正确处理 new 操作符Function.prototype.bind 是 JavaScript 中用于创建绑定特定 this 上下文的函数的重要方法。然而，很多简单的实现都会忽略一个关键场景：当返回的函数被 new 操作符调用时会发生什么？ 本文将深入分析这个问题，并提供完整的实现方案。
-问题：一种简单实现的缺陷先看一个常见的 bind 实现：
-123456789Function.prototype.bind = Function.prototype.bind || function (context) &#123;  let args = Array.prototype.slice.call(arguments, 1)  let me = this  return function () &#123;    let innerArgs = Array.prototype.slice.call(arguments)    let finalArgs = args.concat(innerArgs)    return me...
+              bind简单实现
             
           </div>
         
