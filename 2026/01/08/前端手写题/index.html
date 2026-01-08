@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
-
-<html theme="dark" showBanner="true" hasBanner="true" > 
+<html theme="dark"> 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
@@ -22,7 +20,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="一些常见的前端手写题">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2026-01-08T03:07:37.012Z">
+<meta property="article:published_time" content="2026-01-08T07:42:06.890Z">
 <meta property="article:modified_time" content="2026-01-06T06:18:24.794Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="面试">
@@ -41,17 +39,8 @@
 
 <body>
   
-  
-    
-<div id="banner" class="">
-  <img src="/images/banner.jpg" itemprop="image">
-  <div id="banner-dim"></div>
-</div>
- 
-   
-  <div id="main-grid" class="  ">
-    <div id="nav" class=""  >
-      <navbar id="navbar">
+  <div id="nav" class=""  >
+    <navbar id="navbar">
   <nav id="title-nav">
     <a href="/">
       <div id="vivia-logo">
@@ -60,7 +49,7 @@
         <div class="dot"></div>
         <div class="dot"></div>
       </div>
-      <div>Hexo </div>
+      <div>福尔马林沐浴露 </div>
     </a>
   </nav>
   <nav id="main-nav">
@@ -68,8 +57,6 @@
       <a class="main-nav-link" href="/">Home</a>
     
       <a class="main-nav-link" href="/archives">Archives</a>
-    
-      <a class="main-nav-link" href="/about">About</a>
     
   </nav>
   <nav id="sub-nav">
@@ -94,8 +81,6 @@
     
       <a class="nav-dropdown-link" href="/archives">Archives</a>
     
-      <a class="nav-dropdown-link" href="/about">About</a>
-    
     
       <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
      
@@ -108,78 +93,93 @@
     dropdownEle.classList.toggle("hidden");
   }
 </script>
-    </div>
-    <div id="sidebar-wrapper">
-      <sidebar id="sidebar">
-  
-    <div class="widget-wrap">
-  <div class="info-card">
-    <div class="avatar">
+  </div>
+  <div id="main-container">
+    <div id="left-sidebar">
+      <div id="profile-card-wrapper">
+        <div id="profile-card" class="profile-card">
+  <div class="profile-avatar">
+    
+      <img src="/images/avatar.jpg" alt="福尔马林沐浴露">
+    
+  </div>
+  <div class="profile-info">
+    <div class="profile-name">福尔马林沐浴露</div>
+    <div class="profile-post-count">
       
-        <image src=/images/avatar.jpg></image>
-      
-      <div class="img-dim"></div>
+      2 articles
     </div>
-    <div class="info">
-      <div class="username">福尔马林沐浴露 </div>
-      <div class="dot"></div>
-      <div class="subtitle"> </div>
-      <div class="link-list">
+    
+    
+      <div class="profile-links">
         
-          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+          <a class="profile-link-btn" href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer" title="Steam">
+            <i class="fa-brands fa-steam"></i>
+          </a>
         
-          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
-         
-      </div>  
-    </div>
+          <a class="profile-link-btn" href="https://github.com/Ruciazyt" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <i class="fa-brands fa-github"></i>
+          </a>
+        
+      </div>
+    
   </div>
 </div>
 
-  
-  <div class="sticky">
-    
-      
-
-
-  <div class="widget-wrap">
-    <div class="widget">
-      <h3 class="widget-title">Categories</h3>
-      <div class="category-box">
+      </div>
+      <div id="sidebar-wrapper">
+        
+          
+            
+              <div class="widget-wrap">
+  <div class="widget">
+    <div class="main-title-bar">
+      <div class="main-title-dot"></div>
+      <div class="main-title">Categories</div>
+    </div>
+    <div class="category-box">
             <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">
                 前端
                 <div class="category-count">2</div>
             </a>
         </div>
+  </div>
+</div>
+
+            
+              <div class="widget-wrap">
+  <div class="widget">
+    <div class="main-title-bar">
+      <div class="main-title-dot"></div>
+      <div class="main-title">Tags</div>
+    </div>
+    <div class="tagcloud">
+      <a href="/tags/%E9%9D%A2%E8%AF%95/" style="font-size: 12px; color: #ccc">面试</a>
     </div>
   </div>
+</div>
 
-
-    
-      
-  <div class="widget-wrap">
-    <div class="widget">
-      <h3 class="widget-title">Tags</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
-    </div>
-  </div>
-
-
-    
-  </div>
-</sidebar>
+            
+          
+        
+      </div>
     </div>
     <div id="content-body">
        
 
-
-<article id="post-前端手写题" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  
+<article
+  id="post-前端手写题"
+  class="h-entry article article-type-post"
+  itemprop="blogPost"
+  itemscope
+  itemtype="https://schema.org/BlogPosting">
     
-   
   <div class="article-inner">
     <div class="article-main">
       <header class="article-header">
-        
+        <div class="article-header-top">
+          <div class="article-title-wrapper">
+            
 <div class="main-title-bar">
   <div class="main-title-dot"></div>
   
@@ -191,46 +191,39 @@
   
 </div>
 
-        <div class='meta-info-bar'>
-          <div class="meta-info">
-  <time class="dt-published" datetime="2026-01-08T03:07:37.012Z" itemprop="datePublished">2026-01-08</time>
-</div>
-          <div class="need-seperator meta-info">
-            <div class="meta-cate-flex">
+          </div>
+          <div class="article-meta-wrapper">
+            <div class="need-seperator meta-info"><div class="meta-cate-flex">
   
   <a class="meta-cate-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
    
 </div>
-  
-          </div>
-          <div class="wordcount need-seperator meta-info">
-            720 words 
+</div>
+            <div class="article-tag-wrapper">
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+</div>
+            <div class="meta-info">
+  <time class="dt-published" datetime="2026-01-08T07:42:06.890Z" itemprop="datePublished">2026-01-08</time>
+</div>
           </div>
         </div>
         
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
-
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
-        
-          <h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn, delay)&#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function()&#123;</span><br><span class="line">    if(timer) clearTimeout(timer)</span><br><span class="line">    timer = setTimeout(()=&gt;&#123;</span><br><span class="line">      fn.apply(this, arguments)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+         <h3 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn, delay)&#123;</span><br><span class="line">  let timer = null</span><br><span class="line">  return function()&#123;</span><br><span class="line">    if(timer) clearTimeout(timer)</span><br><span class="line">    timer = setTimeout(()=&gt;&#123;</span><br><span class="line">      fn.apply(this, arguments)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn, delay) &#123;</span><br><span class="line">  let timer;</span><br><span class="line">  return function () &#123;</span><br><span class="line">    if (timer) return</span><br><span class="line">    timer = setTimeout(() =&gt; &#123;</span><br><span class="line">      fn.apply(this, arguments)</span><br><span class="line">      clearTimeout(timer)</span><br><span class="line">    &#125;, delay)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="实现一个-sleep-函数"><a href="#实现一个-sleep-函数" class="headerlink" title="实现一个 sleep 函数"></a>实现一个 sleep 函数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sleep(time) &#123;</span><br><span class="line">  return new Promise(() =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;, time)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="实现-new"><a href="#实现-new" class="headerlink" title="实现 new"></a>实现 new</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function myNew(constructor, ...args) &#123;</span><br><span class="line">    // 1.创建一个新对象</span><br><span class="line">    // 2.绑定原型链</span><br><span class="line">    const obj = Object.create(constructor.prototype)</span><br><span class="line">    // 3.执行构造函数，绑定this,传入参数</span><br><span class="line">    const res = constructor.apply(obj, args)</span><br><span class="line">    return res instanceof Object ? res : obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
+ 
       </div>
 
-         
+      
     </div>
-    
-     
   </div>
-  
-    
+   
 <nav id="article-nav">
   <a class="article-nav-btn left  disabled "
      >
@@ -254,25 +247,10 @@
   </a>
 </nav>
 
-
-  
+ 
 </article>
 
-
-
-
-
-
-    </div>
-    <div id="footer-wrapper">
-      <footer id="footer">
   
-  <div id="footer-info" class="inner">
-    
-    &copy; 2026 福尔马林沐浴露<br>
-    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
-  </div>
-</footer>
 
     </div>
     <div class="back-to-top-wrapper">
@@ -297,6 +275,16 @@
         scrollFunction();
     }
 </script>
+
+  </div>
+  <div id="footer-wrapper">
+    <footer id="footer">
+  <div id="footer-info" class="inner">
+    
+    &copy; 2026 福尔马林沐浴露<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
 
   </div>
   <script src="/js/light-dark-switch.js"></script>
