@@ -29,7 +29,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://graph.ruciazyt.cn/api/cfile/AgACAgUAAyEGAASzqoFuAAMKaWSLBmyBPVAncIPfLFywDSXb6nUAAjoOaxuUuCFXVHrXSbtIP1ABAAMCAAN4AAM4BA">
 <meta property="article:published_time" content="2026-01-09T05:21:04.527Z">
-<meta property="article:modified_time" content="2026-01-11T23:08:39.455Z">
+<meta property="article:modified_time" content="2026-01-12T18:53:20.018Z">
 <meta property="article:author" content="Ruciazyt">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://graph.ruciazyt.cn/api/cfile/AgACAgUAAyEGAASzqoFuAAMKaWSLBmyBPVAncIPfLFywDSXb6nUAAjoOaxuUuCFXVHrXSbtIP1ABAAMCAAN4AAM4BA">
@@ -180,7 +180,7 @@
 <div class="article-gallery">
   <div class="article-gallery-photos">
     
-      <a class="article-gallery-img" rel="gallery_cuid8gxSvqGUyTmDo-ZnWB_MV">
+      <a class="article-gallery-img" rel="gallery_cuidPR5BAnR1m4lqZiVodeCu3">
         <img src="https://graph.ruciazyt.cn/api/cfile/AgACAgUAAyEGAASzqoFuAAMKaWSLBmyBPVAncIPfLFywDSXb6nUAAjoOaxuUuCFXVHrXSbtIP1ABAAMCAAN4AAM4BA" itemprop="image">
       </a>
     
@@ -216,7 +216,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            1.9k words 
+            2k words 
           </div>
         </div>
         
@@ -235,7 +235,7 @@
 <h5 id="Promise-reject"><a href="#Promise-reject" class="headerlink" title="Promise.reject()"></a>Promise.reject()</h5><p>没有幂等性，接受的值将作为reject的reason。Promise.reject()会实例化一个拒绝的期约并抛出一个<strong>异步错误</strong>（这个错误无法被try&#x2F;catch捕获，只能通过拒绝处理程序捕获）</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;foo&quot;</span>)</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e) <span class="comment">// Error: foo</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">  <span class="title class_">Promise</span>.<span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;bar&#x27;</span>))</span><br><span class="line">&#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(e)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Uncaught (in promise) Error: bar</span></span><br></pre></td></tr></table></figure>
 
-<h5 id="Promise-then"><a href="#Promise-then" class="headerlink" title="Promise.then()"></a>Promise.then()</h5><p>then会接收onResolved和onRejected两个方法，Promise.then()会返回一个新的期约实例。</p>
+<h5 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then()"></a>Promise.prototype.then()</h5><p>then会接收onResolved和onRejected两个方法，Promise.then()会返回一个新的期约实例。</p>
 <ul>
 <li><p>如果onResolved有返回值，则返回的新期约实列为Promise.resolve(OnResolved返回值)。根据之前我们知道Promise.resolve()有幂等性，因此如果onResolved的返回值是个期约，那么then的返回实例也将会是那个期约</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(foo)</span><br><span class="line"><span class="keyword">let</span> p2 = p1.<span class="title function_">then</span>(<span class="function">()=&gt;</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">()=&gt;</span>&#123;&#125;))</span><br><span class="line"><span class="keyword">let</span> p3 = p1.<span class="title function_">then</span>(<span class="function">()=&gt;</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>())</span><br><span class="line"><span class="comment">// Uncaught (in promise): undefined</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, p2) <span class="comment">// Promise&lt;pending&gt;</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, p3) <span class="comment">// Promise&lt;rejected&gt; undefined</span></span><br></pre></td></tr></table></figure></li>
@@ -247,7 +247,7 @@
 <p>onRejected()的行为与onResolved()返回的上述行为是一致的，也是通过Promise.resolve进行包装，不再过多赘述。唯一需要注意的是第二种没有传递的情况，在onRejected()的情况下如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Promise</span>.<span class="title function_">reject</span>(foo)</span><br><span class="line"><span class="keyword">let</span> p2 = p1.<span class="title function_">then</span>()</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, p2) <span class="comment">// Promise&lt;rejected&gt; foo </span></span><br></pre></td></tr></table></figure>
 
-<h5 id="Promise-finally"><a href="#Promise-finally" class="headerlink" title="Promise.finally()"></a>Promise.finally()</h5><p>finally(onFinally)用于注册一个处理程序，这个处理程序在Promise转化为完成和拒绝状态时会执行，除非onFinally返回了一个<strong>拒绝或者待定状态的Promise</strong>或者抛出了错误，此时会返回那个拒绝状态的Promise，否则传递父Promise</p>
+<h5 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally()"></a>Promise.prototype.finally()</h5><p>finally(onFinally)用于注册一个处理程序，这个处理程序在Promise转化为完成和拒绝状态时会执行，除非onFinally返回了一个<strong>拒绝或者待定状态的Promise</strong>或者抛出了错误，此时会返回那个拒绝状态的Promise，否则传递父Promise</p>
 <p>finally被设计为与状态无关的方法，并且主要用于做一些清理工作，对下面这个例子需要注意, 当finally中的Promise被解决的时候，仍然传递了p1的值，这与finally的设计是一致的。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p1 = <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(<span class="string">&#x27;foo&#x27;</span>);</span><br><span class="line"><span class="comment">// 忽略解决的值</span></span><br><span class="line"><span class="keyword">let</span> p2 = p1.<span class="title function_">finally</span>(</span><br><span class="line">  <span class="function">() =&gt;</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">resolve</span>(<span class="string">&#x27;bar&#x27;</span>), <span class="number">100</span>)));</span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, p2); <span class="comment">// Promise &lt;pending&gt;</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="built_in">setTimeout</span>(<span class="variable language_">console</span>.<span class="property">log</span>, <span class="number">0</span>, p2), <span class="number">200</span>);</span><br><span class="line"><span class="comment">// 200 毫秒后：</span></span><br><span class="line"><span class="comment">// Promise &lt;resolved&gt;: foo</span></span><br></pre></td></tr></table></figure>
 
@@ -264,7 +264,7 @@
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/2026/01/12/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/"
+      href="/2026/01/13/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/"
       title="前端面试手写题"
      >
     <i class="fa-solid fa-angle-left"></i>
