@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>title | Ruciazyt | 福尔马林沐浴露</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="Promise详解 | Ruciazyt | 福尔马林沐浴露这篇文章解释了一些promise中的概念，本章我们将基于这些概念来完成简单的手写Promise 初始化我们知道Promise内部有三种状态，因此我们定义status 1234567const FULFILLED &#x3D; &#x27;fullfilled&#x27;const REJECTED &#x3D; &#x27;rejected&#x27;con">
+<meta property="og:type" content="article">
+<meta property="og:title" content="title">
+<meta property="og:url" content="https://ruciazyt.github.io/2026/01/12/Promise%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%99/index.html">
+<meta property="og:site_name" content="Ruciazyt | 福尔马林沐浴露">
+<meta property="og:description" content="Promise详解 | Ruciazyt | 福尔马林沐浴露这篇文章解释了一些promise中的概念，本章我们将基于这些概念来完成简单的手写Promise 初始化我们知道Promise内部有三种状态，因此我们定义status 1234567const FULFILLED &#x3D; &#x27;fullfilled&#x27;const REJECTED &#x3D; &#x27;rejected&#x27;con">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-01-12T18:57:36.996Z">
+<meta property="article:modified_time" content="2026-01-14T22:53:00.230Z">
+<meta property="article:author" content="Ruciazyt">
+<meta property="article:tag" content="Promise">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Ruciazyt | 福尔马林沐浴露" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>Ruciazyt | 福尔马林沐浴露 </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS Feed">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS Feed">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/images/avatar.jpg></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">福尔马林沐浴露 </div>
+      <div class="dot"></div>
+      <div class="subtitle"> </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://store.steampowered.com" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/Ruciazyt" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Categories</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">
+                前端
+                <div class="category-count">4</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">Tags</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-Promise详解-手写" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        title
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2026-01-12T18:57:36.996Z" itemprop="datePublished">2026-01-13</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            10k words 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Promise/" rel="tag">Promise</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <p><a href="https://"><a target="_blank" rel="noopener" href="https://ruciazyt.cn/2026/01/09/Promise%E8%AF%A6%E8%A7%A3/">Promise详解 | Ruciazyt | 福尔马林沐浴露</a></a>这篇文章解释了一些promise中的概念，本章我们将基于这些概念来完成简单的手写Promise</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>我们知道Promise内部有三种状态，因此我们定义status</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其次，在Promise兑现和拒绝的时候，需要有变量来存储值，也就是then()中回调可以接收的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">  value = <span class="literal">undefined</span></span><br><span class="line">  reason = <span class="literal">undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来我们思考构造函数，我们考虑new Promise(executor), 这里会接收executor，excutor是什么形式呢？（resolve，reject）&#x3D;&gt; {}， 其中resolve和reject是可以改变Promise状态的函数，可以给Promise调用。因此我们考虑写出以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">  value = <span class="literal">undefined</span></span><br><span class="line">  reason = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">construct</span>(<span class="params">executor</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">      <span class="title function_">reject</span>(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们考虑实现then方法，then(onFulfilled, onRejected)</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#onfulfilled"><code>onFulfilled</code> <strong>可选</strong></a>一个在此 Promise 对象被兑现时异步执行的函数。它的返回值将成为 <code>then()</code> 返回的 Promise 对象的兑现值。此函数被调用时将传入以下参数：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#value"><code>value</code></a>Promise 对象的兑现值。</p>
+<p>如果 <code>onFulfilled</code> 不是一个函数，则内部会被替换为一个<em>恒等</em>函数（<code>(x) =&gt; x</code>），它只是简单地将兑现值向前传递。</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#onrejected"><code>onRejected</code> <strong>可选</strong></a>一个在此 Promise 对象被拒绝时异步执行的函数。它的返回值将成为 <code>catch()</code> 返回的 Promise 对象的兑现值。此函数被调用时将传入以下参数：</p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then#reason"><code>reason</code></a>Promise 对象被拒绝的原因。</p>
+<p>如果 <code>onRejected</code> 不是一个函数，则内部会被替换为一个<em>抛出器</em>函数（<code>(x) =&gt; { throw x; }</code>），它会抛出它收到的拒绝原因</p>
+<p>同时我们需要明确，then的返回是一个新的promise，因此我们有以下实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">  value = <span class="literal">undefined</span></span><br><span class="line">  reason = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">construct</span>(<span class="params">executor</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">      <span class="title function_">reject</span>(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>)&#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&#x27;function&#x27;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> (x)</span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">&#x27;function&#x27;</span> ? onRejected : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">throw</span> x &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>then中的回调是在Promise发生改变的时候会调用的，因此我们肯定是要在Promise中判断相关的状态，我们补全这块代码，针对每种状态填写相应的逻辑，对于新的返回的新的Promise，我们也需要变更它的状态，因此有以下代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">  value = <span class="literal">undefined</span></span><br><span class="line">  reason = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line">  <span class="title function_">construct</span>(<span class="params">executor</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">      <span class="title function_">reject</span>(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>)&#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&#x27;function&#x27;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> (x)</span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">&#x27;function&#x27;</span> ? onRejected : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">throw</span> x &#125;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promse</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从注释代码中我们可以知道，当PENDING的时候，我们需要保存这些回调函数，那么这些回调函数会在什么时候执行呢？在exectuor调用resolve()&#x2F;reject()的时候，我们需要执行这些回调函数。所以在这之前，我们需要有地方能够存储这些回调。然后在resolve和reject的时候执行这些回调。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&#x27;fullfilled&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&#x27;rejected&#x27;</span></span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&#x27;pending&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span></span><br><span class="line">  value = <span class="literal">undefined</span></span><br><span class="line">  reason = <span class="literal">undefined</span></span><br><span class="line">  resolvedCallbacks = []</span><br><span class="line">  rejectedCallbacks = []  </span><br><span class="line"></span><br><span class="line">  <span class="title function_">construct</span>(<span class="params">executor</span>)&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason</span><br><span class="line">      <span class="keyword">if</span>(rejectedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">          rejectedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">reason</span>)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val</span><br><span class="line">      <span class="keyword">if</span>(resolvedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">          resolvedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">value</span>)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject)</span><br><span class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">      <span class="title function_">reject</span>(e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>)&#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&#x27;function&#x27;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> (x)</span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">&#x27;function&#x27;</span> ? onRejected : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">throw</span> x &#125;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promse</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们需要思考如何把回调函数推进callbacks数组中，我们不能直接把onFulfilled和onRejcted推进数组中，因为then返回的Promise的状态也需要改变，如果我们直接使用onFulfilled和onRejected，那么返回的then返回的Promise的状态可能一直都是PENDING的，无法被改变，因此我们需要一层包装函数，接受then返回的Promise中的resolve和reject，以此达到改变新Promise状态的目的。因此我们可以有以下实现</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只写then方法部分</span></span><br><span class="line"><span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>)&#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&#x27;function&#x27;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> (x)</span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">&#x27;function&#x27;</span> ? onRejected : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123; <span class="keyword">throw</span> x &#125;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promse</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">handleFulfilled</span> = (<span class="params">value</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="title function_">onFulfilled</span>(value)</span><br><span class="line">        <span class="title function_">resolve</span>(res)</span><br><span class="line">      &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">        <span class="title function_">reject</span>(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">handleRejected</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> res = <span class="title function_">onRejected</span>(reason)</span><br><span class="line">        <span class="title function_">resolve</span>(res)</span><br><span class="line">      &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">        <span class="title function_">reject</span>(e)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">resolvedCallbacks</span>.<span class="title function_">push</span>(handleFulfilled)</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rejectedCallbacks</span>.<span class="title function_">push</span>(handleRejected)</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span><span class="title function_">handleFulfilled</span>(<span class="variable language_">this</span>.<span class="property">value</span>))</span><br><span class="line">      &#125;<span class="keyword">else</span> <span class="keyword">if</span>(self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>)&#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span><span class="title function_">handleRejected</span>(<span class="variable language_">this</span>.<span class="property">reason</span>))</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>至此的话，简单的实现就差不多了，还差最后的关键，如果then中的回调返回的是一个Promise，我们该如何处理，then(()&#x3D;&gt;new Promise()).then(xxx)这种情况下，我们需要等待前一个then中的Promise完成，才能够执行下一个then。例子中()&#x3D;&gt;new Promise()，这个新建的Promise也就是我们onFulfilled方法的返回，也就是res。因此我们需要判断这个res是否为Promise，如果是Promise，需要等待这个Promise完成。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只写then方法部分</span></span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>) &#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&quot;function&quot;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> x;</span><br><span class="line">    onRejected =</span><br><span class="line">      <span class="keyword">typeof</span> onRejected === <span class="string">&quot;function&quot;</span></span><br><span class="line">        ? onRejected</span><br><span class="line">        : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> x;</span><br><span class="line">          &#125;;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promse</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleFulfilled</span> = (<span class="params">value</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onFulfilled</span>(value);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            <span class="comment">// 将我们现在的resovle和reject传递下去</span></span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleRejected</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onRejected</span>(reason);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">resolvedCallbacks</span>.<span class="title function_">push</span>(handleFulfilled);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rejectedCallbacks</span>.<span class="title function_">push</span>(handleRejected);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleFulfilled</span>(<span class="variable language_">this</span>.<span class="property">value</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleRejected</span>(<span class="variable language_">this</span>.<span class="property">reason</span>));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&quot;fullfilled&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&quot;rejected&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&quot;pending&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span> &#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span>;</span><br><span class="line">  value = <span class="literal">undefined</span>;</span><br><span class="line">  reason = <span class="literal">undefined</span>;</span><br><span class="line">  resolvedCallbacks = [];</span><br><span class="line">  rejectedCallbacks = [];</span><br><span class="line"></span><br><span class="line">  <span class="title function_">construct</span>(<span class="params">executor</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason;</span><br><span class="line">      <span class="keyword">if</span> (rejectedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          rejectedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">reason</span>);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val;</span><br><span class="line">      <span class="keyword">if</span> (resolvedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          resolvedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">value</span>);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="title function_">reject</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 只写then方法部分</span></span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>) &#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&quot;function&quot;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> x;</span><br><span class="line">    onRejected =</span><br><span class="line">      <span class="keyword">typeof</span> onRejected === <span class="string">&quot;function&quot;</span></span><br><span class="line">        ? onRejected</span><br><span class="line">        : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> x;</span><br><span class="line">          &#125;;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promse</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleFulfilled</span> = (<span class="params">value</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onFulfilled</span>(value);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            <span class="comment">// 将我们现在的resovle和reject传递下去</span></span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleRejected</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onRejected</span>(reason);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">resolvedCallbacks</span>.<span class="title function_">push</span>(handleFulfilled);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rejectedCallbacks</span>.<span class="title function_">push</span>(handleRejected);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleFulfilled</span>(<span class="variable language_">this</span>.<span class="property">value</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleRejected</span>(<span class="variable language_">this</span>.<span class="property">reason</span>));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下一篇继续实现race,all这些方法</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2026/01/15/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/"
+      title="前端面试手写题"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        前端面试手写题
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2026/01/09/Promise%E8%AF%A6%E8%A7%A3/"
+      title="Promise详解"
+     >
+
+    <p class="title-text">
+      
+        Promise详解
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2026 福尔马林沐浴露<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+   
+  
+    
+      
+        <!-- Custom External Script -->
+        <script defer src="https://umami.ruciazyt.cn/script.js" data-website-id="5443c577-1355-45cb-bbe9-737316ba37fe"></script>
+        <!-- End Custom External Script -->
+      
+    
+  
+
+
+
+</body>
+</html>
