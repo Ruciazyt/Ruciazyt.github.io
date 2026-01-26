@@ -1,0 +1,298 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Promise-详解-手写2 | Ruciazyt | 福尔马林沐浴露</title><meta name="author" content="Ruciazyt"><meta name="copyright" content="Ruciazyt"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="紧接着我们上篇完成的方法，我们需要完成Promise.resolve()， Promise.reject()，Promise.all()， Promise.race()方法。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise-详解-手写2">
+<meta property="og:url" content="https://ruciazyt.github.io/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/index.html">
+<meta property="og:site_name" content="Ruciazyt | 福尔马林沐浴露">
+<meta property="og:description" content="紧接着我们上篇完成的方法，我们需要完成Promise.resolve()， Promise.reject()，Promise.all()， Promise.race()方法。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://ruciazyt.github.io/images/avatar.jpg">
+<meta property="article:published_time" content="2026-01-25T22:32:45.878Z">
+<meta property="article:modified_time" content="2026-01-25T22:32:46.533Z">
+<meta property="article:author" content="Ruciazyt">
+<meta property="article:tag" content="Promise">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ruciazyt.github.io/images/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Promise-详解-手写2",
+  "url": "https://ruciazyt.github.io/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/",
+  "image": "https://ruciazyt.github.io/images/avatar.jpg",
+  "datePublished": "2026-01-25T22:32:45.878Z",
+  "dateModified": "2026-01-25T22:32:46.533Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "Ruciazyt",
+      "url": "https://ruciazyt.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://ruciazyt.github.io/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4-b1"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: 'Copy Successful',
+    error: 'Copy Failed',
+    noSupport: 'Browser Not Supported'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: 'Just now',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: 'Load More'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Promise-详解-手写2',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(/images/banner.jpg);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Ruciazyt | 福尔马林沐浴露</span></a><a class="nav-page-title" href="/"><span class="site-name">Promise-详解-手写2</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  Back to Home</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">Promise-详解-手写2</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2026-01-25T22:32:45.878Z" title="Created 2026-01-26 06:32:45">2026-01-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2026-01-25T22:32:46.533Z" title="Updated 2026-01-26 06:32:46">2026-01-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post Views:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>紧接着我们上篇完成的方法，我们需要完成Promise.resolve()， Promise.reject()，Promise.all()， Promise.race()方法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="variable constant_">FULFILLED</span> = <span class="string">&quot;fullfilled&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">REJECTED</span> = <span class="string">&quot;rejected&quot;</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="variable constant_">PENDING</span> = <span class="string">&quot;pending&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span> &#123;</span><br><span class="line">  status = <span class="variable constant_">PENDING</span>;</span><br><span class="line">  value = <span class="literal">undefined</span>;</span><br><span class="line">  reason = <span class="literal">undefined</span>;</span><br><span class="line">  resolvedCallbacks = [];</span><br><span class="line">  rejectedCallbacks = [];</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">executor</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">reject</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">REJECTED</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">reason</span> = reason;</span><br><span class="line">      <span class="keyword">if</span> (rejectedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          rejectedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">reason</span>);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">const</span> <span class="title function_">resolve</span> = (<span class="params">val</span>) =&gt; &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">status</span> = <span class="variable constant_">FULFILLED</span>;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">value</span> = val;</span><br><span class="line">      <span class="keyword">if</span> (resolvedCallbacks.<span class="property">length</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          resolvedCallbacks.<span class="title function_">forEach</span>(<span class="function">(<span class="params">callback</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="title function_">callback</span>(<span class="variable language_">this</span>.<span class="property">value</span>);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 从这里我们可以知道new Promise(executor)中的executor是同步代码，会执行一次</span></span><br><span class="line">      <span class="title function_">executor</span>(resolve, reject);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="title function_">reject</span>(e);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 只写then方法部分</span></span><br><span class="line">  <span class="title function_">then</span>(<span class="params">onFulfilled, onRejected</span>) &#123;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">&quot;function&quot;</span> ? onFulfilled : <span class="function">(<span class="params">x</span>) =&gt;</span> x;</span><br><span class="line">    onRejected =</span><br><span class="line">      <span class="keyword">typeof</span> onRejected === <span class="string">&quot;function&quot;</span></span><br><span class="line">        ? onRejected</span><br><span class="line">        : <span class="function">(<span class="params">x</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> x;</span><br><span class="line">          &#125;;</span><br><span class="line">    <span class="comment">// 既然我们需要知道当前Promise的状态，我们就需要保存一个this变量</span></span><br><span class="line">    <span class="keyword">const</span> self = <span class="variable language_">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleFulfilled</span> = (<span class="params">value</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onFulfilled</span>(value);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            <span class="comment">// 将我们现在的resovle和reject传递下去</span></span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> <span class="title function_">handleRejected</span> = (<span class="params">reason</span>) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">let</span> res = <span class="title function_">onRejected</span>(reason);</span><br><span class="line">          <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">            res.<span class="title function_">then</span>(resolve, reject);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="title function_">resolve</span>(res);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">          <span class="title function_">reject</span>(e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">PENDING</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise还未完成，因此需要将回调保存到队列中</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">resolvedCallbacks</span>.<span class="title function_">push</span>(handleFulfilled);</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">rejectedCallbacks</span>.<span class="title function_">push</span>(handleRejected);</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">FULFILLED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经完成，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleFulfilled</span>(<span class="variable language_">this</span>.<span class="property">value</span>));</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (self.<span class="property">status</span> === <span class="variable constant_">REJECTED</span>) &#123;</span><br><span class="line">        <span class="comment">// 此时调用then的promise已经为拒绝状态，可以执行回调</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">handleRejected</span>(<span class="variable language_">this</span>.<span class="property">reason</span>));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为resolve和reject是Promise上的方法，因此我们先写上框架，然后我们去看看这两个函数应该返回什么东西</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  <span class="title function_">resolve</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">reject</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Promise.resolve()仍然应该返回一个Promise, 可以继续进行链式调用。接收值value可以为一个值，也可以是一个Promise，也可以是一个具有thenable对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  <span class="title function_">resolve</span>(<span class="params">value</span>) &#123;</span><br><span class="line">    <span class="comment">// 先考虑value为普通值的情况， new出Promise进行返回，然后我们调用executor改变状态</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123; <span class="title function_">resolve</span>(value) &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后我们进一步考虑，当value为Promise时该如何进行修改？首先我们添加判断是否为Promise的代码。</p>
+<p>MDN上对Promise类型的value处理说明如下： <code>Promise.resolve()</code> 方法会重用已存在的 <code>Promise</code> 实例。如果它正在解决一个原生的 Promise，它将返回同一 Promise 实例，而不会创建一个封装对象。对于thenable对象的处理，MDN上是这样写的：</p>
+<ul>
+<li>如果传入的是一个 thenable 对象，则通过传入一对解决函数作为参数调用该 thenable 对象的 <code>then</code> 方法后得到的状态将作为返回的 Promise 对象的状态。（但是因为原生的 Promise 直接通过 <code>Promise.resolve()</code> 调用，而不创建封装对象，所以不会在原生 Promise 上调用 <code>then</code> 方法。）如果 <code>resolve</code> 函数接收到另一个 thenable 对象，则会再次进行解决，以确保 Promise 对象的最终兑现值永远不会是 thenable 对象。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  <span class="title function_">resolve</span>(<span class="params">value</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="title class_">Promise</span>)&#123;</span><br><span class="line">      <span class="keyword">return</span> value</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 对于thenable对象</span></span><br><span class="line">    <span class="keyword">if</span>((<span class="keyword">typeof</span> value === <span class="string">&#x27;object&#x27;</span> &amp;&amp; value !== <span class="literal">null</span>) || <span class="keyword">typeof</span> value === <span class="string">&#x27;function&#x27;</span>)&#123;</span><br><span class="line">      <span class="keyword">const</span> then = value.<span class="property">then</span></span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> then === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>) =&gt;</span> &#123;</span><br><span class="line">          then.<span class="title function_">call</span>(value, resovle, reject)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">      <span class="title function_">resolve</span>(value)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>resolve的实现至此结束</p>
+<p>接下来我们进行reject的实现, 我们同样先看一下reject的MDN解释： </p>
+<p><code>Promise.reject()</code> 实际上相当于 <code>new Promise((resolve, reject) =&gt; reject(reason))</code> 的简写形式。</p>
+<p>与 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/resolve"><code>Promise.resolve()</code></a> 不同，即使 <code>reason</code> 已经是一个 Promise 对象，<code>Promise.reject()</code> 方法也始终会将其封装在一个新的 <code>Promise</code> 对象中。</p>
+<p>因此我们明确了reject的返回，以及知道了它是什么的简写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span>&#123;</span><br><span class="line">  <span class="title function_">reject</span>(<span class="params">value</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> <span class="title function_">reject</span>(value))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们来实现race, all等方法。 首先我们考虑Promise.all()。按照惯例我们来看一下输入和输出： </p>
+<p>输入： <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/all#iterable"><code>iterable</code></a>一个<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%8D%8F%E8%AE%AE">可迭代对象</a>，例如 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array"><code>Array</code></a> 或 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String"><code>String</code></a>。</p>
+<p>输出： 一个 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise"><code>Promise</code></a>，其状态为：</p>
+<ul>
+<li><strong>已兑现（already fulfilled）</strong>，如果传入的 <code>iterable</code> 为空。</li>
+<li><strong>异步兑现（asynchronously fulfilled）</strong>，如果给定的 <code>iterable</code> 中所有的 promise 都已兑现。兑现值是一个数组，其元素顺序与传入的 promise 一致，而非按照兑现的时间顺序排列。如果传入的 <code>iterable</code> 是一个非空但不包含待定的（pending）promise，则返回的 promise 依然是异步兑现，而非同步兑现。</li>
+<li><strong>异步拒绝（asynchronously rejected）</strong>，如果给定的 <code>iterable</code> 中的任意 promise 被拒绝。拒绝原因是第一个拒绝的 promise 的拒绝原因。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Promise</span> &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="title function_">all</span>(<span class="params">promises</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 1. 判断参数是否为数组（标准中是 iterator，这里简化判断）</span></span><br><span class="line">            <span class="keyword">if</span> (!<span class="title class_">Array</span>.<span class="title function_">isArray</span>(promises)) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">TypeError</span>(<span class="string">&#x27;Argument must be an array&#x27;</span>));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> len = promises.<span class="property">length</span>;</span><br><span class="line">            <span class="comment">// 2. 如果传入空数组，直接返回包含空数组的 resolved promise</span></span><br><span class="line">            <span class="keyword">if</span> (len === <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="title function_">resolve</span>([]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">const</span> results = <span class="keyword">new</span> <span class="title class_">Array</span>(len);</span><br><span class="line">            <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            promises.<span class="title function_">forEach</span>(<span class="function">(<span class="params">promise, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// 3. 使用 Promise.resolve 包装，处理非 Promise 值</span></span><br><span class="line">                <span class="title class_">Promise</span>.<span class="title function_">resolve</span>(promise).<span class="title function_">then</span>(</span><br><span class="line">                    <span class="function">(<span class="params">value</span>) =&gt;</span> &#123;</span><br><span class="line">                        count++;</span><br><span class="line">                        results[index] = value;</span><br><span class="line">                        <span class="comment">// 4. 只有当所有 promise 都成功时才 resolve</span></span><br><span class="line">                        <span class="keyword">if</span> (count === len) &#123;</span><br><span class="line">                            <span class="title function_">resolve</span>(results);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;,</span><br><span class="line">                    <span class="comment">// 5. 只要有一个失败，直接 reject</span></span><br><span class="line">                    <span class="function">(<span class="params">reason</span>) =&gt;</span> <span class="title function_">reject</span>(reason)</span><br><span class="line">                );</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>Author: </span><span class="post-copyright-info"><a href="https://ruciazyt.github.io">Ruciazyt</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>Link: </span><span class="post-copyright-info"><a href="https://ruciazyt.github.io/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/">https://ruciazyt.github.io/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>Copyright Notice: </span><span class="post-copyright-info">All articles on this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless otherwise stated.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%9D%A2%E8%AF%95/">面试</a><a class="post-meta__tags" href="/tags/Promise/">Promise</a></div><div class="post-share"><div class="social-share" data-image="/images/avatar.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related" href="/2026/01/26/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/" title="前端面试手写题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info"><div class="info-1"><div class="info-item-1">Previous</div><div class="info-item-2">前端面试手写题</div></div><div class="info-2"><div class="info-item-1">防抖123456789function debounce(fn, delay)&#123;  let timer = null  return function()&#123;    if(timer) clearTimeout(timer)    timer = setTimeout(()=&gt;&#123;      fn.apply(this, arguments)    &#125;, delay)  &#125;&#125;  节流12345678910function throttle(fn, delay) &#123;  let timer;  return function () &#123;    if (timer) return    timer = setTimeout(() =&gt; &#123;      fn.apply(this, arguments)      clearTimeout(timer)    &#125;, delay)  &#125;&#125;  实现一个 sleep 函数1234567function sleep(time...</div></div></div></a><a class="pagination-related" href="/2026/01/12/Promise%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%99/" title=" Promise详解-手写"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">Next</div><div class="info-item-2"> Promise详解-手写</div></div><div class="info-2"><div class="info-item-1">Promise详解 | Ruciazyt | 福尔马林沐浴露这篇文章解释了一些promise中的概念，本章我们将基于这些概念来完成简单的手写Promise 初始化我们知道Promise内部有三种状态，因此我们定义status 1234567const FULFILLED = &#x27;fullfilled&#x27;const REJECTED = &#x27;rejected&#x27;const PENDING = &#x27;pending&#x27;class Promise&#123;  status = PENDING&#125;  其次，在Promise兑现和拒绝的时候，需要有变量来存储值，也就是then()中回调可以接收的值。 123456789const FULFILLED = &#x27;fullfilled&#x27;const REJECTED = &#x27;rejected&#x27;const PENDING = &#x27;pending&#x27;class Promise&#123;  status = PENDING  value = un...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/01/12/Promise%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%99/" title=" Promise详解-手写"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-13</div><div class="info-item-2"> Promise详解-手写</div></div><div class="info-2"><div class="info-item-1">Promise详解 | Ruciazyt | 福尔马林沐浴露这篇文章解释了一些promise中的概念，本章我们将基于这些概念来完成简单的手写Promise 初始化我们知道Promise内部有三种状态，因此我们定义status 1234567const FULFILLED = &#x27;fullfilled&#x27;const REJECTED = &#x27;rejected&#x27;const PENDING = &#x27;pending&#x27;class Promise&#123;  status = PENDING&#125;  其次，在Promise兑现和拒绝的时候，需要有变量来存储值，也就是then()中回调可以接收的值。 123456789const FULFILLED = &#x27;fullfilled&#x27;const REJECTED = &#x27;rejected&#x27;const PENDING = &#x27;pending&#x27;class Promise&#123;  status = PENDING  value = un...</div></div></div></a><a class="pagination-related" href="/2026/01/09/Promise%E8%AF%A6%E8%A7%A3/" title="Promise详解"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-09</div><div class="info-item-2">Promise详解</div></div><div class="info-2"><div class="info-item-1">Promise的三种状态  待定 兑现 ——&gt; 内部需要有个value变量来接受值 拒绝 ——&gt; 内部需要有个reason变量来拒绝  控制Promise进行状态转换的方法为调用它的函数参数实现的，即resolve()和reject() new Promise(执行器函数) ， 执行器函数是同步的，用于初始化期约的状态 Promise.resolve()这个方法可以把任意值转化（包括错误对象）为一个期约，具有幂等性 Promise.reject()没有幂等性，接受的值将作为reject的reason。Promise.reject()会实例化一个拒绝的期约并抛出一个异步错误（这个错误无法被try&#x2F;catch捕获，只能通过拒绝处理程序捕获） 123456789101112try&#123;  throw new Error(&quot;foo&quot;)&#125;catch(e)&#123;  console.log(e) // Error: foo&#125;try&#123;  Promise.reject(new Error(&#x27;bar&#x2...</div></div></div></a><a class="pagination-related" href="/2026/01/06/%E6%89%8B%E5%86%99bind/" title="手写bind"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-07</div><div class="info-item-2">手写bind</div></div><div class="info-2"><div class="info-item-1">Function.prototype.bind 简单实现：正确处理 new 操作符Function.prototype.bind 是 JavaScript 中用于创建绑定特定 this 上下文的函数的重要方法。然而，很多简单的实现都会忽略一个关键场景：当返回的函数被 new 操作符调用时会发生什么？ 本文将深入分析这个问题，并提供完整的实现方案。 问题：一种简单实现的缺陷先看一个常见的 bind 实现： 1234567891011Function.prototype.bind =  Function.prototype.bind ||  function (context) &#123;    let args = Array.prototype.slice.call(arguments, 1);    let me = this;    return function () &#123;      let innerArgs = Array.prototype.slice.call(arguments);      let finalArgs = args.concat(inn...</div></div></div></a><a class="pagination-related" href="/2026/01/26/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/" title="前端面试手写题"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-01-26</div><div class="info-item-2">前端面试手写题</div></div><div class="info-2"><div class="info-item-1">防抖123456789function debounce(fn, delay)&#123;  let timer = null  return function()&#123;    if(timer) clearTimeout(timer)    timer = setTimeout(()=&gt;&#123;      fn.apply(this, arguments)    &#125;, delay)  &#125;&#125;  节流12345678910function throttle(fn, delay) &#123;  let timer;  return function () &#123;    if (timer) return    timer = setTimeout(() =&gt; &#123;      fn.apply(this, arguments)      clearTimeout(timer)    &#125;, delay)  &#125;&#125;  实现一个 sleep 函数1234567function sleep(time...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/images/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">Ruciazyt</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">Tags</div><div class="length-num">2</div></a><a href="/categories/"><div class="headline">Categories</div><div class="length-num">1</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons"><a class="social-icon" href="https://github.com/Ruciazyt" target="_blank" title="GitHub"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="https://store.steampowered.com" target="_blank" title="Steam"><i class="fab fa-steam" style="color: #171a21;"></i></a></div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Posts</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/26/%E5%89%8D%E7%AB%AF%E6%89%8B%E5%86%99%E9%A2%98/" title="前端面试手写题">前端面试手写题</a><time datetime="2026-01-26T08:47:25.829Z" title="Created 2026-01-26 16:47:25">2026-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/25/Promise-%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%992/" title="Promise-详解-手写2">Promise-详解-手写2</a><time datetime="2026-01-25T22:32:45.878Z" title="Created 2026-01-26 06:32:45">2026-01-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/12/Promise%E8%AF%A6%E8%A7%A3-%E6%89%8B%E5%86%99/" title=" Promise详解-手写"> Promise详解-手写</a><time datetime="2026-01-12T18:57:36.996Z" title="Created 2026-01-13 02:57:36">2026-01-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/09/Promise%E8%AF%A6%E8%A7%A3/" title="Promise详解">Promise详解</a><time datetime="2026-01-09T05:21:04.527Z" title="Created 2026-01-09 13:21:04">2026-01-09</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/06/%E6%89%8B%E5%86%99bind/" title="手写bind">手写bind</a><time datetime="2026-01-06T23:00:55.971Z" title="Created 2026-01-07 07:00:55">2026-01-07</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/images/banner.jpg);"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By Ruciazyt</span><span class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4-b1</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Reading Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Toggle Between Light and Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle Between Single-column and Double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="Settings"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="Back to Top"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4-b1"></script><script src="/js/main.js?v=5.5.4-b1"></script><div class="js-pjax"></div><script>(() => {
+  const option = null
+  const config = {"site_uv":false,"site_pv":false,"page_pv":false,"token":null}
+
+  const runTrack = () => {
+    if (typeof umami !== 'undefined' && typeof umami.track === 'function') {
+      umami.track(props => ({ ...props, url: window.location.pathname, title: GLOBAL_CONFIG_SITE.title }))
+    } else {
+      console.warn('Umami Analytics: umami.track is not available')
+    }
+  }
+
+  const loadUmamiJS = () => {
+    btf.getScript('https://umami.ruciazyt.cn/script.js', {
+      'data-website-id': '5443c577-1355-45cb-bbe9-737316ba37fe',
+      'data-auto-track': 'false',
+      ...option
+    }).then(() => {
+      runTrack()
+    }).catch(error => {
+      console.error('Umami Analytics: Error loading script', error)
+    })
+  }
+
+  const getData = async (isPost) => {
+    try {
+      const now = Date.now()
+      const keyUrl = isPost ? `&url=${window.location.pathname}&path=${window.location.pathname}` : ''
+      const headerList = { 'Accept': 'application/json' }
+
+      if (true) {
+        headerList['Authorization'] = `Bearer ${config.token}`
+      } else {
+        headerList['x-umami-api-key'] = config.token
+      }
+
+      const res = await fetch(`https://umami.ruciazyt.cn/api/websites/5443c577-1355-45cb-bbe9-737316ba37fe/stats?startAt=0000000000&endAt=${now}${keyUrl}`, {
+        method: "GET",
+        headers: headerList
+      })
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`)
+      }
+
+      return await res.json()
+    } catch (error) {
+      console.error('Umami Analytics: Failed to fetch data', error)
+      throw error
+    }
+  }
+
+  const insertData = async () => {
+    try {
+      if (GLOBAL_CONFIG_SITE.pageType === 'post' && config.page_pv) {
+        const pagePV = document.getElementById('umamiPV')
+        if (pagePV) {
+          const data = await getData(true)
+          if (data && data.pageviews) {
+            pagePV.textContent = typeof data.pageviews.value !== 'undefined' ? data.pageviews.value : data.pageviews
+          } else {
+            console.warn('Umami Analytics: Invalid page view data received')
+          }
+        }
+      }
+
+      if (config.site_uv || config.site_pv) {
+        const data = await getData(false)
+
+        if (config.site_uv) {
+          const siteUV = document.getElementById('umami-site-uv')
+          if (siteUV && data && data.visitors) {
+            siteUV.textContent = typeof data.visitors.value !== 'undefined' ? data.visitors.value : data.visitors
+          } else if (siteUV) {
+            console.warn('Umami Analytics: Invalid site UV data received')
+          }
+        }
+
+        if (config.site_pv) {
+          const sitePV = document.getElementById('umami-site-pv')
+          if (sitePV && data && data.pageviews) {
+            sitePV.textContent = typeof data.pageviews.value !== 'undefined' ? data.pageviews.value : data.pageviews
+          } else if (sitePV) {
+            console.warn('Umami Analytics: Invalid site PV data received')
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Umami Analytics: Failed to insert data', error)
+    }
+  }
+
+  btf.addGlobalFn('pjaxComplete', runTrack, 'umami_analytics_run_track')
+  btf.addGlobalFn('pjaxComplete', insertData, 'umami_analytics_insert')
+
+
+  loadUmamiJS()
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', insertData)
+  } else {
+    setTimeout(insertData, 100)
+  }
+})()</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
